@@ -1,5 +1,5 @@
 use anyhow::Result;
-use ergo_types::block::{block::Block, block_transactions::BlockTransactions, header::Header};
+use forge_types::block::{block::Block, block_transactions::BlockTransactions, header::Header};
 use serde_json::Value;
 
 use crate::types::{indexed_height_response::IndexedHeightResponse, node_info::NodeInfo, peer::Peer};
@@ -21,7 +21,7 @@ impl Client {
     }
 
     pub async fn get_block_ids(&self, limit: u32, offset: u32) -> Result<Vec<String>> {
-        let url = format!("http://{}:{}/blocks?limit={}&offset={}", &self.ip, &self.port, limit, offset);
+        let url = format!("http://{}:{}/blocks?limit={}&offset={}", &self.ip, &self.port, limit + 1, offset);
         let response = reqwest::get(&url).await?.text().await?;
         let response: Value = serde_json::from_str(&response)?;
         let response = response.as_array().unwrap();
@@ -120,5 +120,24 @@ impl Client {
         let client = reqwest::Client::new();
         let response = client.get(&url).send().await?.json::<IndexedHeightResponse>().await?;
         Ok(response)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[tokio::test]
+    async fn test_get_block_ids() {
+        let client = Client::new("213.239.193.208", 9053, "");
+        let response = client.get_block_ids(10, 0).await.unwrap();
+        assert_eq!(response.len(), 10);
+    }
+
+    #[tokio::test]
+    async fn test_get_block_id_for_height() {
+        let client = Client::new("213.239.193.208", 9053, "");
+        let response = client.get_block_id_for_height(1).await.unwrap();
+        assert_eq!(response, "b0244dfc267baca974a4caee06120321562784303a8a688976ae56170e4d175b");
     }
 }

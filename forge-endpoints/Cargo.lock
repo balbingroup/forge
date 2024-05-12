@@ -569,17 +569,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "ergo-types"
-version = "0.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c39c38963391da821f8e832ed60dd7f5b766f658a18e0bba8217507de8fbf41d"
-dependencies = [
- "ergo-chain-types",
- "ergo-lib",
- "serde",
-]
-
-[[package]]
 name = "ergo_avltree_rust"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -721,11 +710,25 @@ name = "forge-endpoints"
 version = "0.1.0"
 dependencies = [
  "anyhow",
- "ergo-types",
+ "forge-types",
  "reqwest",
  "serde",
  "serde_json",
  "tokio",
+]
+
+[[package]]
+name = "forge-types"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "87fa1513f54990ad6b8a9de8af83eff2736db9146e601293b9dd73b10e411aba"
+dependencies = [
+ "ergo-chain-types",
+ "ergo-lib",
+ "num-bigint",
+ "serde",
+ "serde_json",
+ "serde_with",
 ]
 
 [[package]]
@@ -1691,9 +1694,9 @@ dependencies = [
 
 [[package]]
 name = "serde_json"
-version = "1.0.108"
+version = "1.0.116"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3d1c7e3eac408d115102c4c24ad393e0821bb3a5df4d506a80f85f7a742a526b"
+checksum = "3e17db7126d17feb94eb3fad46bf1a96b034e8aacbc2e775fe81505f8b0b2813"
 dependencies = [
  "indexmap 2.2.6",
  "itoa",
