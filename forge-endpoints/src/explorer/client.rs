@@ -1,6 +1,5 @@
 use anyhow::Result;
-use forge_types::{block::{block::Block, block_transactions::BlockTransactions, header::Header}, transaction::transaction::Transaction};
-use serde_json::Value;
+use forge_types::transaction::full_transaction::FullTransaction;
 
 #[derive(Clone, Debug)]
 pub struct Client {
@@ -14,10 +13,10 @@ impl Client {
         }
     }
 
-    pub async fn get_transaction_by_id(&self, id: &str) -> Result<Transaction> {
+    pub async fn get_transaction_by_id(&self, id: &str) -> Result<FullTransaction> {
         let url = format!("{}/api/v1/transactions/{}", &self.ip, id);
         let client = reqwest::Client::new();
-        let response = client.get(&url).send().await?.json::<Transaction>().await?;
+        let response = client.get(&url).send().await?.json::<FullTransaction>().await?;
         Ok(response)
     }
 

@@ -719,9 +719,9 @@ dependencies = [
 
 [[package]]
 name = "forge-types"
-version = "0.1.0"
+version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "87fa1513f54990ad6b8a9de8af83eff2736db9146e601293b9dd73b10e411aba"
+checksum = "dbe88927e42c8da0824e23bbc778ec43a978c5bb9a96021f00942e3580b01f00"
 dependencies = [
  "ergo-chain-types",
  "ergo-lib",
